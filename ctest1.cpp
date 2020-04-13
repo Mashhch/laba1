@@ -7,7 +7,7 @@ char* sklei(char s1[10], char s2[10], char s3[20], char* s);
 
 int ctest1()
 {
-    printf("\nТест функции конкатенации: ");
+    printf("\nРўРµСЃС‚ С„СѓРЅРєС†РёРё РєРѕРЅРєР°С‚РµРЅР°С†РёРё: ");
     char konech[20];
     char konech1[20];
     int i;
@@ -17,22 +17,22 @@ int ctest1()
     int flag = 1;
     for (i = 0; i < 20; i++)
          konech[i] = '0';
-    printf("Введите 1 строку: ");
+    printf("Р’РІРµРґРёС‚Рµ 1 СЃС‚СЂРѕРєСѓ: ");
     rewind(stdin);
     for (i = 0; i < 10; i++)
         scanf("%c", &s1[i]);
     rewind(stdin);
-    printf("\nВведите 2 строку: ");
+    printf("\nР’РІРµРґРёС‚Рµ 2 СЃС‚СЂРѕРєСѓ: ");
     rewind(stdin);
     for (i = 0; i < 10; i++)
         scanf("%c", &s2[i]);
     rewind(stdin);
-    printf("\nВведите склееную строку: ");
+    printf("\nР’РІРµРґРёС‚Рµ СЃРєР»РµРµРЅСѓСЋ СЃС‚СЂРѕРєСѓ: ");
     for (i = 0; i < 20; i++)
         scanf("%c", &konech1[i]);
     rewind(stdin);
     sklei(s1, s2, konech, m3);
-    printf("\nСтрока, склеенная функцией: ");
+    printf("\nРЎС‚СЂРѕРєР°, СЃРєР»РµРµРЅРЅР°СЏ С„СѓРЅРєС†РёРµР№: ");
     for (i = 0; i < 20; i++)
     {
         printf("%c", konech[i]);
