@@ -10,7 +10,7 @@ char* f8(char* s1, char s[20])
     {
         s[i] = m[i];
     }
-    printf("\n f8 строка: ");
+    printf("\n f8 СЃС‚СЂРѕРєР°: ");
     for (int i = 0; i < 20; i++)
         printf("%c", s[i]);
     s1 = s;
