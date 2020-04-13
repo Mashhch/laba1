@@ -11,7 +11,7 @@ char* vvod(char s[10], int m, char* d)
     set_len = strlen(SET);
     for (i = 0; i < 10; i++)
         s[i] = SET[rand() % set_len];
-    printf("\n %d ñòðîêà: ", m);
+    printf("\n %d ÑÑ‚Ñ€Ð¾ÐºÐ°: ", m);
     for (i = 0; i < 10; i++)
         printf("%c", s[i]);
     d = s;
