@@ -5,7 +5,7 @@
 
 char* f3(char* s1, char s[20])
 {
-    printf("\n f3 строка: ");
+    printf("\n f3 СЃС‚СЂРѕРєР°: ");
     char m[20] = "this is a string kk";
     for (int i = 0; i < 20; i++)
     {
