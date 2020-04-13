@@ -13,7 +13,7 @@ char* f6(char* s1, char s[20])
     set_len = strlen(SET);
     for (i = 0; i < 20; i++)
         s[i] = SET[rand() % (set_len - 4) + 1];
-    printf("\n f6 ñòðîêà: ");
+    printf("\n f6 ÑÑ‚Ñ€Ð¾ÐºÐ°: ");
     for (i = 0; i < 20; i++)
         printf("%c", s[i]);
     s1 = s;
