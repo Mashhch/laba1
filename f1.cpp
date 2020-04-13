@@ -21,7 +21,7 @@ char* f1(char* w, char konech[20])
     vvod(s1, 1, m1);
     vvod(s2, 2, m2);
     w = sklei(s1, s2, konech, m3);
-    printf("\nf1 Склеенная строка: ");
+    printf("\nf1 РЎРєР»РµРµРЅРЅР°СЏ СЃС‚СЂРѕРєР°: ");
     for (i = 0; i < 20; i++)
     {
         printf("%c", *(i + w));
