@@ -15,9 +15,9 @@ void map(char* Z, void (*F)(char*));
 void ToHigh(char* c);
 void ToLower(char* c);
 char** fs();
-char* sklei(char s1[10], char s2[10], char s3[20], char* s); // конкатенация
+char* sklei(char s1[10], char s2[10], char s3[20], char* s);
 char* vvod(char s[10], int m, char* d);
-char* f1(char* w, char konech[20]); 
+char* f1(char* w, char konech[20]); // конкатенация
 char* f2(char* s1, char s[20]);
 char* f3(char* s1, char s[20]);
 char* f4(char* s1, char s[20]);
@@ -46,23 +46,29 @@ char** fs() {
     return funcs;
 }
 
+typedef struct {
+    void** A; // массив
+    int N; // колво элементов в массиве
+    int n; // колво функций
+}Arr;
+
 int main()
 {
+    Arr Massiv;
     system("chcp 1251");
     system("cls");
     char SET[] = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm123456789";
     int set_len;
     srand((unsigned)time(NULL));
-    int N;
-    int n, p;
+    int p;
     char* e[9];
     char t[9][20];
     char vv;
     int (*L)(char* S); //указатель на функцию
     L = &Cif;
-    void (*F)(char*); //указатель на функцию
+    void (*F)(char*); // указатель на функцию
     F = &ToLower;
-    // инициализация для возможности передачи в функции
+    // инициализация для передачи в функции
     for (int i = 0; i < 9; i++)
     {
         for(int j=0;j<2;j++)
@@ -75,6 +81,7 @@ int main()
         rewind(stdin);
         printf("\n0 - Автоматический ввод;\n1 - ввод вручную;\n2 - СиТест функции конкатенации;\n3 - СиТест функции map;\n4 - СиТест функции where;\nВыход - любая другая клавиша;\n");
         vv = getchar();
+
         if (vv >= '0' && vv <= '9')
         {
             p = (vv - '0');
@@ -82,32 +89,32 @@ int main()
             {
                 if (p == 0)
                 {
-                    N = rand() % 20 + 10;
-                    printf("Колличество элементов в массиве: %d", N);
-                    n = (rand() * 7) % 10;
-                    printf("\nКолличество функций в массиве(<10):%d", n);
+                    Massiv.N = rand() % 20 + 10;
+                    printf("Колличество элементов в массиве: %d", Massiv.N);
+                    Massiv.n = (rand() * 7) % 10;
+                    printf("\nКолличество функций в массиве(<10):%d", Massiv.n);
                 }
                 if (p == 1)
                 {
                     printf("введите колличество элементов в массиве:");
                     rewind(stdin);
-                    scanf("%d", &N);
+                    scanf("%d", &Massiv.N);
                     printf("введите колличество функций в массиве(<10):");
                     rewind(stdin);
-                    scanf("%d", &n);
+                    scanf("%d", &Massiv.n);
                 }
-                void** A = (void**)malloc(N * sizeof(void*)); // динамический массив указателей на функции и строки
+                Massiv.A = (void**)malloc(Massiv.N * sizeof(void*)); // динамический массив указателей на функции и строки
 
-                 //указатели на функции
-                for (int i = 0; i < N; i++)
-                    A[i] = fs()[i];
+                            //указатели на функции
+                for (int i = 0; i < Massiv.N; i++)
+                    Massiv.A[i] = fs()[i];
 
 
                 //массив строк длины 20
-                char* a = (char*)malloc((N - n) * 20 * sizeof(char));
+                char* a = (char*)malloc((Massiv.N - Massiv.n) * 20 * sizeof(char));
                 if (p == 0)
                 {
-                    for (int i = 0; i < N - n; i++)
+                    for (int i = 0; i < Massiv.N - Massiv.n; i++)
                     {
                         for (int j = 0; j < 20; j++)
                         {
@@ -121,9 +128,9 @@ int main()
                 {
                     printf("Введите  строки из 20 символов(в случае переполнения учитываются первые 20 введенных символа)");
                     rewind(stdin);
-                    for (int i = 0; i < N - n; i++)
+                    for (int i = 0; i < Massiv.N - Massiv.n; i++)
                     {
-                        printf("\n%d строка:", i + n);
+                        printf("\n%d строка:", i + Massiv.n);
                         for (int j = 0; j < 20; j++)
                             scanf("%c", (a + i * 20 + j));
                         rewind(stdin);
@@ -132,50 +139,50 @@ int main()
 
 
                 //указатели на строки
-                for (int i = n; i < N; i++)
-                    A[i] = a + (i - n) * 20;
+                for (int i = Massiv.n; i < Massiv.N; i++)
+                    Massiv.A[i] = a + (i - Massiv.n) * 20;
 
                 //Вывод на экран
                 printf("\n функции-строки в массиве:");
-                for (int i = 0; i < n; i++)
+                for (int i = 0; i < Massiv.n; i++)
                 {
-                    (((char* (*)(char*, char k[20])) A[i])) (e[i], t[i]);
+                    (((char* (*)(char*, char k[20])) Massiv.A[i])) (e[i], t[i]);
                 }
 
                 printf("\n Обычные строки в массиве:");
-                for (int i = n; i < N; i++)
+                for (int i = Massiv.n; i < Massiv.N; i++)
                 {
                     printf("\n %d строка:", i);
                     for (int j = 0; j < 20; j++)
-                        printf("%c", *((char*)A[i] + j));
+                        printf("%c", *((char*)Massiv.A[i] + j));
                 }
 
                 //функция map
                 F = &ToLower;
                 printf("\n\nПеревод в строчные буквы функцией map:");
-                for (int i = n; i < N; i++)
+                for (int i = Massiv.n; i < Massiv.N; i++)
                 {
                     printf("\n");
                     for (int j = 0; j < 20; j++)
-                        map((char*)A[i] + j, *F);
+                        map((char*)Massiv.A[i] + j, *F);
                 }
                 //функция where
                 F = &ToHigh;
-                printf("\n\nПеревод в заглавные буквы функцией map:");
-                for (int i = n; i < N; i++)
+                printf("\n\nПеревод в прописные буквы функцией map:");
+                for (int i = Massiv.n; i < Massiv.N; i++)
                 {
                     printf("\n");
                     for (int j = 0; j < 20; j++)
-                        map((char*)A[i] + j, *F);
+                        map((char*)Massiv.A[i] + j, *F);
                 }
                 L = &Cif;
                 printf("\n\nЕсли в строке есть цифры - исключаем их функцией where:");
-                for (int i = n; i < N; i++)
-                    where((char*)A[i], *L);
+                for (int i = Massiv.n; i < Massiv.N; i++)
+                    where((char*)Massiv.A[i], *L);
 
                 free(funcs);
                 free(a);
-                free(A);
+                free(Massiv.A);
             }
         }
 
